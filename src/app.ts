@@ -1,6 +1,5 @@
 import express, {
   type Application,
-  type NextFunction,
   type Request,
   type Response,
 } from "express";
