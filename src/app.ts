@@ -10,7 +10,7 @@ import { productRoute } from "./modules/product/product.route";
 import { profileRoute } from "./modules/profile/profile.route";
 import { authRouter } from "./modules/auth/auth.route";
 import { logger } from "./middleware/logger";
-import { globelErrorHandler } from "./middleware/globelErrorHandler";
+import  globelErrorHandler  from "./middleware/globelErrorHandler";
 
 const app: Application = express();
 
