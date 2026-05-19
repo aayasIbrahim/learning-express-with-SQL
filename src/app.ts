@@ -4,16 +4,19 @@ import express, {
   type Request,
   type Response,
 } from "express";
-  import CookieParser from "cookie-parser";
+import CookieParser from "cookie-parser";
+import cors from "cors";
 import { userRoute } from "./modules/user/user.route";
 import { productRoute } from "./modules/product/product.route";
 import { profileRoute } from "./modules/profile/profile.route";
 import { authRouter } from "./modules/auth/auth.route";
 import { logger } from "./middleware/logger";
+import { globelErrorHandler } from "./middleware/globelErrorHandler";
 
 const app: Application = express();
 
-app.use(CookieParser())
+app.use(CookieParser());
+app.use(cors({ origin: "http://example.com" }));
 app.use(express.json()); //built In middleware
 app.use(express.text()); //built In middleware
 app.use(express.urlencoded({ extended: true })); //built In middleware
@@ -29,5 +32,7 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/profile", profileRoute);
 app.use("/api/auth", authRouter);
+
+app.use(globelErrorHandler);
 
 export default app;
