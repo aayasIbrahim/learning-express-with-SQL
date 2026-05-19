@@ -1,0 +1,48 @@
+import { pool } from ".";
+
+export const createScheme = async () => {
+  await pool.query(`
+      
+        CREATE TABLE IF NOT EXISTS users
+        (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(20),
+        email VARCHAR(20) UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        is_active BOOLEAN DEFAULT true,
+        role VARCHAR(10) DEFAULT 'user',
+        age INT,
+
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+        )
+            `);
+  await pool.query(`
+      
+                CREATE TABLE IF NOT EXISTS profiles(
+              id SERIAL PRIMARY KEY,
+              user_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+              bio TEXT,
+              address TEXT,
+              phone VARCHAR(15),
+              gender VARCHAR(10),
+
+              created_at TIMESTAMP DEFAULT NOW(),
+              updated_at TIMESTAMP DEFAULT NOW()
+              )          
+              `);
+  await pool.query(`
+    
+      CREATE TABLE IF NOT EXISTS products
+              (
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(200) NOT NULL,
+              price DECIMAL(10,2) NOT NULL,
+              stock INT DEFAULT 0,
+              
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+              
+              
+              )`);
+};
